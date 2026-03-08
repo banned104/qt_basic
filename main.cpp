@@ -39,16 +39,38 @@ int main(int argc, char *argv[])
     QObject::connect(&a, &Counter::signalChangeValue,
                      &b, &Counter::setValue );
 
+    // 信号函数参数数量 > 槽函数参数数量 正确, 可以;  槽 ≤ 信号，多余参数槽忽略
+    QObject::connect(&a, &Counter::signalChangeValue2Param,
+                     &b, &Counter::setValue);
+
+    // // 信号函数参数数量 < 槽函数参数数量 错误
+    // QObject::connect(&a, &Counter::signalChangeValue,
+    //                  &b, &Counter::slotSetValue2Param);
+    
+
     // 连接lambada函数, 注意这里lambada函数的Sender是 QGuiApplication app;
-    QObject::connect(&a, &Counter::signalChangeValue,
+    // 这里 Sender不能是nullptr
+    QMetaObject::Connection connLambda = QObject::connect(&a, &Counter::signalChangeValue,
                      &app, [&](){
-        qDebug() << "App got signal from a";
+        qDebug() << "App lambda got signal from a";
     });
+
 
     // 槽函数slot就是一个普通函数, a调用setValue之后会发送signalChangeValue
     // 然后b就会收到这个信号 也调用自己的setValue 同时b也触发signalChangeValue
     // 但是这个b的信号没有接到任何槽函数 不会导致循环触发信号
     a.setValue(100);
+    // 直接调用信号函数 这就是一个普通函数
+    a.signalChangeValue2Param(100, 1000);
+
+    // 断开所有 &Counter::signalChangeValue2Param 连接的槽函数/信号
+    QObject::disconnect(&a, &Counter::signalChangeValue2Param, nullptr, nullptr);
+    // 全部断开
+    QObject::disconnect(&a, nullptr, nullptr, nullptr);
+    // 断开单个connect;  connLambda只是一个句柄;
+    QObject::disconnect(connLambda);
+    qDebug() << "After Disconnect";
+    a.setValue(100);        // 已经断开 没有槽函数输出
 
     return app.exec();
 }

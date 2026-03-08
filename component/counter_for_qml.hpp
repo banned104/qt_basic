@@ -9,8 +9,9 @@ public:
     explicit Backend(QObject* parent = nullptr) : QObject(parent) {}
     Q_PROPERTY(int m_counter READ getCounter WRITE setCounter NOTIFY counterChanged FINAL)
 
-    Q_INVOKABLE int getCounter() { return m_counter; }
+    int getCounter() { return m_counter; }      // 这里用不着加 Q_INVOKABLE
 
+    // 作为给QML调用的槽函数
     Q_INVOKABLE void increment() {
         m_counter ++;
         emit counterChanged(m_counter);

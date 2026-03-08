@@ -20,13 +20,18 @@ signals:
  */
 
     void signalChangeValue(int value);     // 需要修改值, 值为value
+    void signalChangeValue2Param(int value, int value2);     // 需要修改值, 值为value
 public slots:
-    // slots 就是普通成员函数 只是多了个 "可以被connect的标记"
+    // slots 就是普通成员函数 只是多了个 "可以被connect的标记" 所以直接调用也没问题
     void setValue(int value) {
-        if ( value == m_values ) return;
         m_values = value;
         qDebug() << this->objectName() << "-> Value has been changed to: " << m_values;
         emit signalChangeValue(value);
+    }
+
+    void slotSetValue2Param(int value, int value2) {
+        m_values = value + value2;
+        qDebug() << this->objectName() << "-> (2Param) Value has been changed to: " << m_values;
     }
 
 private:
