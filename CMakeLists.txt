@@ -13,6 +13,7 @@ set(COMPONENTS
     component/counter.h
     component/counter_for_qml.hpp
     component/qt_core_test/q_string_test.h
+    component/qt_core_test/q_hash_test.h
 )
 
 qt_add_executable(appQAI

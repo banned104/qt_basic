@@ -5,6 +5,7 @@
 #include "component/counter.h"
 #include "component/counter_for_qml.hpp"
 #include "component/qt_core_test/q_string_test.h"
+#include "component/qt_core_test/q_hash_test.h"
 
 int main(int argc, char *argv[])
 {
@@ -77,6 +78,9 @@ int main(int argc, char *argv[])
     /* QString */
     /****************************************/
     QStringTest();
+    QListTest();
+    QMapTest();
+    QHashTest();
 
     return app.exec();
 }
