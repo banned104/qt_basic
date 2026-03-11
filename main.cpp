@@ -4,6 +4,7 @@
 
 #include "component/counter.h"
 #include "component/counter_for_qml.hpp"
+#include "component/qt_core_test/q_string_test.h"
 
 int main(int argc, char *argv[])
 {
@@ -71,6 +72,11 @@ int main(int argc, char *argv[])
     QObject::disconnect(connLambda);
     qDebug() << "After Disconnect";
     a.setValue(100);        // 已经断开 没有槽函数输出
+
+    /****************************************/
+    /* QString */
+    /****************************************/
+    QStringTest();
 
     return app.exec();
 }
