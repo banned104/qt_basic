@@ -15,6 +15,8 @@ set(COMPONENTS
     component/qt_core_test/q_string_test.h
     component/qt_core_test/q_hash_test.h
     component/qt_core_test/q_variant_test.h
+    component/qt_thread_test/qt_thread_test.h
+    component/qt_thread_test/qt_thread_test.cpp
 )
 
 qt_add_executable(appQAI
@@ -26,6 +28,7 @@ qt_add_qml_module(appQAI
     URI QAI
     QML_FILES
         Main.qml
+        component/qml_component/QThreadTest.qml
 )
 
 target_include_directories(appQAI PRIVATE

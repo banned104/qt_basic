@@ -8,6 +8,8 @@
 // #include "component/qt_core_test/q_hash_test.h"
 #include "component/qt_core_test/q_variant_test.h"
 
+#include "component/qt_thread_test/qt_thread_test.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -19,6 +21,12 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
+
+    /* QThreadTest QML界面*/
+    // qmlRegisterType<ThreadFromQThread>("com.mythread.test", 1, 0, "QThreadTestCPP");  // -> 报错 Element is not creatable.
+    ThreadFromQThread myThreadTest = new ThreadFromQThread(&app);
+    // qmlRegisterSingletonType<ThreadFromQThread>("com.mythread.test", 1, 0, "QThreadTest");
+    qmlRegisterSingletonInstance<ThreadFromQThread>("com.mythread.test", 1, 0, "QThreadTestCPP", &myThreadTest);
 
     /****************************************/
     /* C++ 与 QML 相互通信 */
@@ -87,6 +95,7 @@ int main(int argc, char *argv[])
 
     // q_variant_test.h
     QVariantReturnTest();
+
 
     return app.exec();
 }

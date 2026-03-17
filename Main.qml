@@ -1,11 +1,16 @@
 import QtQuick
 import QtQuick.Controls
+import "component/qml_component"
 
 Window {
     width: 640
     height: 480
     visible: true
     title: qsTr("Hello World")
+
+    QThreadTest{
+
+    }
 
     Rectangle {
         width: parent.width/2
