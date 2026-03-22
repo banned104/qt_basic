@@ -17,6 +17,7 @@ set(COMPONENTS
     component/qt_core_test/q_variant_test.h
     component/qt_thread_test/qt_thread_test.h
     component/qt_thread_test/qt_thread_test.cpp
+    component/qt_thread_test/qt_thread_object.hpp
 )
 
 qt_add_executable(appQAI

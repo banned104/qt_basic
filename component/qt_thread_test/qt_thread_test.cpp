@@ -39,7 +39,7 @@ void ThreadFromQThread::setRunCount(int count) {
     emit message(QString("%1->%2,thread id: %3").arg(__FUNCTION__).arg(__FILE__).arg((quint64)QThread::currentThreadId()));
 }
 
-void ThreadFromQThread::run() {
+void ThreadFromQThread::run() override{
     QString str = QString("%1->%2,thread id: %3").arg(__FUNCTION__).arg(__FILE__).arg((quint64)QThread::currentThreadId());
     int count = 0;
     emit message(str);

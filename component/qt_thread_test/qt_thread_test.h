@@ -4,7 +4,7 @@
 /*
  * https://blog.csdn.net/czyt1988/article/details/64441443
  * https://www.cnblogs.com/CaiNiaoIceLee/p/16111546.html 不错
- *
+ ! 一定要注意 这个 QThreadFromQThread 自身是在主线程中, 并不是在子线程.
  * 重写run 但是是使用 start() 启动新线程
  * 继承QThread的注意: 构造函数是在new的线程(旧线程)调用的, 只有run在新线程跑
  * 并且这里的 getSomething/setSomething都是在旧线程调用的
