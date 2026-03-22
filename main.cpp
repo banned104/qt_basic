@@ -24,9 +24,10 @@ int main(int argc, char *argv[])
 
     /* QThreadTest QML界面*/
     // qmlRegisterType<ThreadFromQThread>("com.mythread.test", 1, 0, "QThreadTestCPP");  // -> 报错 Element is not creatable.
-    ThreadFromQThread myThreadTest = new ThreadFromQThread(&app);
+    // ThreadFromQThread* myThreadTest = new ThreadFromQThread(&app); -> 拷贝构造, 构造函数调用*2
+    ThreadFromQThread* myThreadTest = new ThreadFromQThread(&app);
     // qmlRegisterSingletonType<ThreadFromQThread>("com.mythread.test", 1, 0, "QThreadTest");
-    qmlRegisterSingletonInstance<ThreadFromQThread>("com.mythread.test", 1, 0, "QThreadTestCPP", &myThreadTest);
+    qmlRegisterSingletonInstance<ThreadFromQThread>("com.mythread.test", 1, 0, "QThreadTestCPP", myThreadTest);
 
     /****************************************/
     /* C++ 与 QML 相互通信 */
